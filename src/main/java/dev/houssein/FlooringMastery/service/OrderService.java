@@ -29,6 +29,10 @@ public class OrderService {
     }
 
     public List<Order> getOrdersByDate(LocalDate date) {
+
+        if(date == null) {
+            throw new IllegalArgumentException("Date cannot be null");
+        }
         return orderDao.findByOrderDate(date);
     }
 
