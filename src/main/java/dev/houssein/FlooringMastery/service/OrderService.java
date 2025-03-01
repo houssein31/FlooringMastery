@@ -29,8 +29,7 @@ public class OrderService {
     }
 
     public List<Order> getOrdersByDate(LocalDate date) {
-
-        if(date == null) {
+        if (date == null) {
             throw new IllegalArgumentException("Date cannot be null");
         }
         return orderDao.findByOrderDate(date);
@@ -68,18 +67,22 @@ public class OrderService {
     }
 
     private void validateOrder(Order order) {
+
+        if (order == null) {
+            throw new IllegalArgumentException("Order cannot be null.");
+        }
         if (order.getCustomerName() == null || order.getCustomerName().isEmpty()) {
             throw new IllegalArgumentException("Customer name is required.");
         }
-        if (order.getOrderDate().isBefore(LocalDate.now())) {
+        if (order.getOrderDate() == null || order.getOrderDate().isBefore(LocalDate.now())) {
             throw new IllegalArgumentException("Order date cannot be in the past.");
         }
-        if (order.getArea().compareTo(BigDecimal.valueOf(100)) < 0) {
+        if (order.getArea() == null || order.getArea().compareTo(BigDecimal.valueOf(100)) < 0) {
             throw new IllegalArgumentException("Order area must be at least 100 sq ft.");
         }
     }
 
-    private void calculateOrderCosts(Order order) {
+    void calculateOrderCosts(Order order) {
         Tax tax = taxDao.findByStateAbbreviation(order.getStateAbbreviation())
                 .orElseThrow(() -> new IllegalArgumentException("State not found."));
         Product product = productDao.findByProductType(order.getProductType())
