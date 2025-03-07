@@ -128,10 +128,6 @@ public class OrderServiceTest {
         verify(orderDao, times(1)).save(order);
     }
 
-//    @Test
-//    public void testAddOrder_NullOrder() {
-//        assertThrows(NullPointerException.class, () -> orderService.addOrder(null));
-//    }
     @Test
     public void testAddOrder_NullOrder() {
         assertThrows(IllegalArgumentException.class, () -> orderService.addOrder(null));
@@ -184,20 +180,6 @@ public class OrderServiceTest {
         assertEquals("State not found.", exception.getMessage());
     }
 
-//    @Test
-//    public void testAddOrder_InvalidProductType() {
-//        Order order = new Order();
-//        order.setProductType("Unknown");
-//        order.setOrderDate(LocalDate.now().plusDays(1));
-//        order.setCustomerName("John Doe");
-//        order.setArea(BigDecimal.valueOf(150));
-//
-//        when(productDao.findByProductType("Unknown")).thenReturn(Optional.empty());
-//
-//        Exception exception = assertThrows(IllegalArgumentException.class, () -> orderService.addOrder(order));
-//        assertEquals("Product not found.", exception.getMessage());
-//    }
-
     @Test
     public void testAddOrder_InvalidProductType() {
         Order order = new Order();
@@ -226,26 +208,6 @@ public class OrderServiceTest {
 
         assertThrows(RuntimeException.class, () -> orderService.addOrder(order));
     }
-
-//    @Test
-//    public void testUpdateOrder_ValidOrder() {
-//        Order order = new Order();
-//        order.setOrderNumber(1);
-//        order.setCustomerName("John Doe");
-//        order.setOrderDate(LocalDate.now().plusDays(1));
-//        order.setStateAbbreviation("TX");
-//        order.setStateAbbreviation("TX");
-//        order.setProductType("Wood");
-//        order.setArea(BigDecimal.valueOf(150));
-//
-//        when(orderDao.existsById(1)).thenReturn(true);
-//        when(orderDao.save(order)).thenReturn(order);
-//
-//        Order updatedOrder = orderService.updateOrder(order);
-//
-//        assertNotNull(updatedOrder);
-//        verify(orderDao, times(1)).save(order);
-//    }
 
     @Test
     public void testUpdateOrder_ValidOrder() {
